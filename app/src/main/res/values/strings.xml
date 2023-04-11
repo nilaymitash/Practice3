@@ -1,3 +1,48 @@
 <resources>
-    <string name="app_name">Practice3</string>
+    <string name="app_name">Practice 3</string>
+
+    <!--Home screen-->
+    <string name="log_in">Log in</string>
+    <string name="logo_alt_text">Trader Joe\'s logo</string>
+    <string name="welcome_msg">Welcome to Trader Joe\'s.</string>
+    <string name="google_login">Continue with Google</string>
+    <string name="create_account">Create Account</string>
+    <string name="terms_n_condition">
+        By tapping Continue or Create Account, I agree to Trader Joe\'s <a href="">Terms of Service</a>, <a href="">Payments Terms of Service</a>, <a href="">Privacy Policy</a>, and <a href="">Non-discrimination Policy</a>.
+    </string>
+    <string name="signing_out_extra">SIGNING_OUT</string>
+    <string name="sign_out_msg">You have been signed out.</string>
+
+    <!--Login screen-->
+    <string name="username_hint">Enter your username</string>
+    <string name="password_hint">Enter password</string>
+    <string name="invalid_creds">Invalid credentials.</string>
+
+    <!--Product List page-->
+    <string name="banner">Trader Joe\'s Products</string>
+    <string name="log_out">Log out</string>
+
+    <!--Product page-->
+
+
+    <!--Demo product details-->
+    <string name="wings_name">Buffalo Style Chickenless Wings</string>
+    <string name="wings_description">
+        Made with a mix of soy and pea protein, these vegan Wings have a remarkably meaty texture that’s crisp on the outside and satisfying juicy on the inside. They only take a few minutes to prep in the air fryer (or a little bit longer in the oven), and each bag comes with a packet of also-vegan, Buffalo-Style hot sauce to give each Wing that classic, cayenne kick to every bite. We recommend them as an appetizer or snack when you’ve got folks over to watch a game or movie, as a companion to our Vegan Meatless Meat Eater’s Pizza, or as the center of a spicy, Chickenless sandwich layered with shredded lettuce and pickles.
+    </string>
+
+    <string name="pickled_pups_name">Perfectly Pickled Pups</string>
+    <string name="pickled_pups_description">
+        Pickled hot dogs, you say? Our Perfectly Pickled Pups are so much more. Parroting the format of our successful Parmesan Pastry Pups, we begin with Mini Uncured Beef Franks. These teeny wieners are infused with dill-pickle flavor, by way of popular brining ingredients such as sea salt, sugar, onion, garlic, vinegar, and dill weed. The pickle-flavored Pups are then coated in a mixure of batter and breadcrumbs that’s seasoned with even more particularly pickley ingredients.
+    </string>
+
+    <string name="pb_name">Organic Creamy Peanut Butter Salted Valencia</string>
+    <string name="pb_description">
+        All of our Organic Peanut Butters are made with Valencia peanuts, grown only in Texas and New Mexico. In contrast, most commercial peanut butters are made from Runner peanuts. Runners are widely cultivated and have a high yield, but they’re just not as good tasting as Valencias. That’s because Valencias are naturally sweet with an intense peanut flavor—eliminating the need to add any kind of sweeteners or flavor enhancers. Valen- cias are so good, we use only two ingredients to make our Organic Creamy Salted Valencia Peanut Butter... You guessed it: peanuts and salt. Really, we think once you taste ours, you’ll wonder how you ever got through this much of your life without it.
+    </string>
+
+    <string name="sb_preserve_name">Strawberry Preserves made with Fresh Strawberries</string>
+    <string name="sb_preserve_description">
+        Sometimes you need that extra oomph getting out of bed, and if we have any suggestions, it would surely be this: imagine the breakfast you could throw together in minutes before heading to work or school. A hot breakfast full of eggs and turkey bacon for your protein and fat, toasted sourdough for your fiber, and to turn that toast into a treat, a generous spread of our Fresh Strawberry Preserves for your simple sugar needs. Each jar is made for us using freshly picked strawberries combined with a little bit of sugar, lemon juice concentrate, and a hint of pectin to jelly up this jam (and as always, no artificial flavors or coloring)! May sound like a simple recipe, but we know it’ll always be enough to get you dancing around the kitchen within minutes of leaving your warm bed.
+    </string>
 </resources>
