@@ -22,8 +22,11 @@
     <string name="banner">Trader Joe\'s Products</string>
     <string name="log_out">Log out</string>
     <string name="next">Next</string>
+    <string name="product_list_extra">PRODUCT_LIST</string>
 
     <!--Product page-->
+    <string name="send_email_label">Send email</string>
+    <string name="selected_products_label">Selected products:</string>
 
 
     <!--Demo product details-->

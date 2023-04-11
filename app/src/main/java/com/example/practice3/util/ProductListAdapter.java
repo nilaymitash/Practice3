@@ -16,20 +16,20 @@ import com.example.practice3.R;
 import com.example.practice3.model.Product;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ViewHolder> {
 
     private List<Product> products;
-    public Map<String, Product> selectedProducts = new HashMap();
+    public Map<String, Product> selectedProducts = new LinkedHashMap<>();
 
     public ProductListAdapter(List<Product> products) {
         this.products = products;
     }
 
-    public List<Product> getSelectedProducts() {
+    public ArrayList<Product> getSelectedProducts() {
         return new ArrayList<>(this.selectedProducts.values());
     }
 

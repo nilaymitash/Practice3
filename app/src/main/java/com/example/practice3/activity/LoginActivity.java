@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         private void navigateToProductSearch() {
-            startActivity(new Intent(LoginActivity.this, SearchProductActivity.class));
+            startActivity(new Intent(LoginActivity.this, ProductListActivity.class));
         }
 
         private void navigateBack() {

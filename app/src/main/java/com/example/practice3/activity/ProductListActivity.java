@@ -17,9 +17,10 @@ import com.example.practice3.model.Product;
 import com.example.practice3.util.ProductListAdapter;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class SearchProductActivity extends AppCompatActivity {
+public class ProductListActivity extends AppCompatActivity {
 
     private RecyclerView mProductRecyclerView;
     private TextView mLogoutLink;
@@ -32,7 +33,7 @@ public class SearchProductActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_product);
+        setContentView(R.layout.activity_product_list);
 
         mLogoutLink = findViewById(R.id.logout_link);
         mProductRecyclerView = findViewById(R.id.product_recyclerView);
@@ -47,7 +48,7 @@ public class SearchProductActivity extends AppCompatActivity {
         mNextButton.setOnClickListener(new ProductPageClickListener());
 
         if(dao.isDatabaseEmpty()) {
-            dao.populateDummyProducts(SearchProductActivity.this);
+            dao.populateDummyProducts(ProductListActivity.this);
         }
 
         List<Product> allProducts = dao.getAllProducts();
@@ -79,17 +80,20 @@ public class SearchProductActivity extends AppCompatActivity {
         }
 
         private void logout() {
-            Intent intent = new Intent(SearchProductActivity.this, MainActivity.class);
+            Intent intent = new Intent(ProductListActivity.this, MainActivity.class);
             intent.putExtra(getResources().getString(R.string.signing_out_extra), true);
             startActivity(intent);
         }
 
         private void nextActivity() {
-            List<Product> selectedProducts = adapter.getSelectedProducts();
+            ArrayList<Product> selectedProducts = adapter.getSelectedProducts();
             if(selectedProducts.isEmpty()) {
                 Snackbar.make(mBottomLayout, "Please select a product.", Snackbar.LENGTH_SHORT).show();
             } else {
                 //load next intent with selected products;
+                Intent intent = new Intent(ProductListActivity.this, SelectedProductsActivity.class);
+                intent.putExtra(getResources().getString(R.string.product_list_extra), selectedProducts);
+                startActivity(intent);
             }
         }
     }
