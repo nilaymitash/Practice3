@@ -1,8 +1,10 @@
-package com.example.practice3.model;
+package com.example.practice3.util;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -11,16 +13,24 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.practice3.R;
-import com.example.practice3.util.Utility;
+import com.example.practice3.model.Product;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ViewHolder> {
 
     private List<Product> products;
+    public Map<String, Product> selectedProducts = new HashMap();
 
     public ProductListAdapter(List<Product> products) {
         this.products = products;
+    }
+
+    public List<Product> getSelectedProducts() {
+        return new ArrayList<>(this.selectedProducts.values());
     }
 
     @NonNull
@@ -50,6 +60,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        public CheckBox mSelectItemCheckBox;
         public TextView mTextViewName;
         public TextView mTextViewPrice;
         public TextView mTextViewDescription;
@@ -67,6 +78,22 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             mProductRatingBar = itemView.findViewById(R.id.product_rating_bar);
             mProductRating = itemView.findViewById(R.id.product_rating);
             mNumOfRatings = itemView.findViewById(R.id.num_of_ratings);
+            mSelectItemCheckBox = itemView.findViewById(R.id.select_item);
+
+            mSelectItemCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    int position = getLayoutPosition();
+                    Product product = products.get(position);
+                    if(b) {
+                        //if selected, add to the list
+                        selectedProducts.put(product.getTitle(), product);
+                    } else {
+                        //if unselected, remove from the list
+                        selectedProducts.remove(product.getTitle());
+                    }
+                }
+            });
         }
     }
 }

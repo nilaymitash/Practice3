@@ -5,8 +5,14 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp">
 
+    <CheckBox
+        android:id="@+id/select_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <ImageView
         android:id="@+id/product_img_holder"
+        android:layout_toRightOf="@+id/select_item"
         android:layout_width="150dp"
         android:layout_height="150dp"/>
 

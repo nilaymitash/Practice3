@@ -3,11 +3,9 @@ package com.example.practice3.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,13 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.practice3.R;
 import com.example.practice3.config.AppDatabaseHelper;
 import com.example.practice3.dao.ProductMaintenanceDao;
-import com.example.practice3.model.Feedback;
 import com.example.practice3.model.Product;
-import com.example.practice3.model.ProductListAdapter;
+import com.example.practice3.util.ProductListAdapter;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SearchProductActivity extends AppCompatActivity {
@@ -30,6 +25,9 @@ public class SearchProductActivity extends AppCompatActivity {
     private TextView mLogoutLink;
     private AppDatabaseHelper databaseHelper;
     private LinearLayout linearLayout;
+    private Button mNextButton;
+    private ProductListAdapter adapter;
+    private LinearLayout mBottomLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,39 +37,23 @@ public class SearchProductActivity extends AppCompatActivity {
         mLogoutLink = findViewById(R.id.logout_link);
         mProductRecyclerView = findViewById(R.id.product_recyclerView);
         linearLayout = findViewById(R.id.search_product_layout);
+        mNextButton = findViewById(R.id.button_to_next_activity);
+        mBottomLayout = findViewById(R.id.layout_horizontal);
 
         databaseHelper = new AppDatabaseHelper(this);
         ProductMaintenanceDao dao = new ProductMaintenanceDao(databaseHelper);
 
-        mLogoutLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SearchProductActivity.this, MainActivity.class);
-                intent.putExtra(getResources().getString(R.string.signing_out_extra), true);
-                startActivity(intent);
-            }
-        });
+        mLogoutLink.setOnClickListener(new ProductPageClickListener());
+        mNextButton.setOnClickListener(new ProductPageClickListener());
 
         if(dao.isDatabaseEmpty()) {
             dao.populateDummyProducts(SearchProductActivity.this);
         }
 
-        List<Product> products = dao.getAllProducts();
-
-        ProductListAdapter adapter = new ProductListAdapter(products);
+        List<Product> allProducts = dao.getAllProducts();
+        adapter = new ProductListAdapter(allProducts);
         mProductRecyclerView.setAdapter(adapter);
 
-
-        /*mProductRecyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Product selectedProduct = (Product) adapterView.getItemAtPosition(position);
-                Intent intent = new Intent(SearchProductActivity.this, ProductActivity.class);
-                intent.putExtra("selectedProduct", selectedProduct);
-                //TODO: add search filter/sort criteria as extra
-                startActivity(intent);
-            }
-        });*/
     }
 
     @Override
@@ -85,5 +67,30 @@ public class SearchProductActivity extends AppCompatActivity {
         }
     }
 
+    class ProductPageClickListener implements View.OnClickListener {
 
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.logout_link: logout(); break;
+                case R.id.button_to_next_activity: nextActivity(); break;
+                default: break;
+            }
+        }
+
+        private void logout() {
+            Intent intent = new Intent(SearchProductActivity.this, MainActivity.class);
+            intent.putExtra(getResources().getString(R.string.signing_out_extra), true);
+            startActivity(intent);
+        }
+
+        private void nextActivity() {
+            List<Product> selectedProducts = adapter.getSelectedProducts();
+            if(selectedProducts.isEmpty()) {
+                Snackbar.make(mBottomLayout, "Please select a product.", Snackbar.LENGTH_SHORT).show();
+            } else {
+                //load next intent with selected products;
+            }
+        }
+    }
 }
