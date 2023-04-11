@@ -11,7 +11,8 @@ public class Product implements Serializable {
     private int imgSrc;
     private BigDecimal price;
     private String description;
-    private List<Feedback> feedback;
+    private float rating;
+    private int numOfRatings;
 
     public long getSku() {
         return sku;
@@ -53,11 +54,19 @@ public class Product implements Serializable {
         this.description = description;
     }
 
-    public List<Feedback> getFeedback() {
-        return feedback;
+    public float getRating() {
+        return rating;
     }
 
-    public void setFeedback(List<Feedback> feedback) {
-        this.feedback = feedback;
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
+    public int getNumOfRatings() {
+        return numOfRatings;
+    }
+
+    public void setNumOfRatings(int numOfRatings) {
+        this.numOfRatings = numOfRatings;
     }
 }

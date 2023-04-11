@@ -11,6 +11,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.practice3.R;
+import com.example.practice3.config.AppDatabaseHelper;
+import com.example.practice3.dao.ProductMaintenanceDao;
 import com.example.practice3.model.Feedback;
 import com.example.practice3.model.Product;
 import com.example.practice3.model.ProductListAdapter;
@@ -23,6 +25,7 @@ public class SearchProductActivity extends AppCompatActivity {
 
     private ListView mProductListView;
     private TextView mLogoutLink;
+    private AppDatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,9 @@ public class SearchProductActivity extends AppCompatActivity {
 
         mLogoutLink = findViewById(R.id.logout_link);
         mProductListView = findViewById(R.id.product_listview);
+
+        databaseHelper = new AppDatabaseHelper(this);
+        ProductMaintenanceDao dao = new ProductMaintenanceDao(databaseHelper);
 
         mLogoutLink.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,7 +47,11 @@ public class SearchProductActivity extends AppCompatActivity {
             }
         });
 
-        ProductListAdapter adapter = new ProductListAdapter(SearchProductActivity.this, populateDemoProductList());
+        if(dao.isDatabaseEmpty()) {
+            dao.populateDummyProducts(SearchProductActivity.this);
+        }
+
+        ProductListAdapter adapter = new ProductListAdapter(SearchProductActivity.this, dao.getAllProducts());
         mProductListView.setAdapter(adapter);
         mProductListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -66,7 +76,7 @@ public class SearchProductActivity extends AppCompatActivity {
         }
     }
 
-    private ArrayList<Product> populateDemoProductList() {
+    /*private ArrayList<Product> populateDemoProductList() {
         ArrayList<Product> productList = new ArrayList<>();
 
         Product p1 = new Product();
@@ -102,7 +112,7 @@ public class SearchProductActivity extends AppCompatActivity {
         productList.add(p3);
         productList.add(p4);
         return productList;
-    }
+    }*/
 
     private List<Feedback> populateFeedbackList(int numOfRatings, float avgRating) {
         List<Feedback> list = new ArrayList<>();

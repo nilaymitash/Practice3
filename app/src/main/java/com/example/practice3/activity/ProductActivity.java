@@ -47,9 +47,8 @@ public class ProductActivity extends AppCompatActivity {
         mProductImage.setImageResource(selectedProduct.getImgSrc());
         mProductPriceLabel.setText(Utility.formatCurrency(selectedProduct.getPrice()));
         mProductDescriptionLabel.setText(String.valueOf(selectedProduct.getDescription()));
-        float avgRating = Utility.getAverageRating(selectedProduct.getFeedback());
-        mProductRatingBar.setRating(avgRating);
-        mNumOfRatings.setText("(" + String.valueOf(selectedProduct.getFeedback().size()) + ")");
+        mProductRatingBar.setRating(selectedProduct.getRating());
+        mNumOfRatings.setText("(" + selectedProduct.getNumOfRatings() + ")");
 
         mBackButton.setOnClickListener(new ProductPageListener());
         mLogoutLink.setOnClickListener(new ProductPageListener());

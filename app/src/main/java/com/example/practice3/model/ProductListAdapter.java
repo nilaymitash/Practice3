@@ -44,10 +44,9 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
         mTextViewName.setText(String.valueOf(product.getTitle()));
         mTextViewPrice.setText(Utility.formatCurrency(product.getPrice()));
         mTextViewDescription.setText(Utility.truncateString(product.getDescription(), 160));
-        float avgRating = Utility.getAverageRating(product.getFeedback());
-        mProductRating.setText(String.valueOf(avgRating));
-        mProductRatingBar.setRating(avgRating);
-        mNumOfRatings.setText("(" + String.valueOf(product.getFeedback().size()) + ")");
+        mProductRating.setText(String.valueOf(product.getRating()));
+        mProductRatingBar.setRating(product.getRating());
+        mNumOfRatings.setText("(" + product.getNumOfRatings() + ")");
 
         return convertView;
     }
