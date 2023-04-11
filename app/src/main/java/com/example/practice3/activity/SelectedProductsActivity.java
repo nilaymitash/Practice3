@@ -21,6 +21,10 @@ public class SelectedProductsActivity extends AppCompatActivity {
     private Button mBackButton;
     private ListView mSelectedProductsListView;
     private Button mSendEmailBtn;
+    private ArrayList<Product> selectedProducts = new ArrayList<>();
+
+    private final String CURRENT_STATE = "Current State: ";
+    private final String CALLED_WHEN = "Called When: ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +41,12 @@ public class SelectedProductsActivity extends AppCompatActivity {
         mSendEmailBtn.setOnClickListener(new ProductPageListener()); //TODO: Add send email logic
 
         Intent intent = getIntent();
-        ArrayList<Product> selectedProducts = (ArrayList<Product>) intent.getSerializableExtra(getResources().getString(R.string.product_list_extra));
-        SelectedProductListAdapter adapter = new SelectedProductListAdapter(SelectedProductsActivity.this, selectedProducts);
+        this.selectedProducts = (ArrayList<Product>) intent.getSerializableExtra(getResources().getString(R.string.product_list_extra));
+        initializeListView();
+    }
+
+    private void initializeListView() {
+        SelectedProductListAdapter adapter = new SelectedProductListAdapter(SelectedProductsActivity.this, this.selectedProducts);
         mSelectedProductsListView.setAdapter(adapter);
     }
 
@@ -49,13 +57,13 @@ public class SelectedProductsActivity extends AppCompatActivity {
             switch (view.getId()) {
                 case R.id.logout_link: logout(); break;
                 case R.id.back_to_all_products: backToAllProducts(); break;
+                case R.id.send_email_btn: sendEmail(); break;
                 default: break;
             }
         }
 
         private void backToAllProducts() {
             Intent intent = new Intent(SelectedProductsActivity.this, ProductListActivity.class);
-            //intent.putExtra("RETURN_FROM_PRODUCT_PAGE", true);
             startActivity(intent);
         }
 
@@ -63,6 +71,29 @@ public class SelectedProductsActivity extends AppCompatActivity {
             Intent intent = new Intent(SelectedProductsActivity.this, MainActivity.class);
             intent.putExtra(getResources().getString(R.string.signing_out_extra), true);
             startActivity(intent);
+        }
+
+        private void sendEmail() {
+            String subject = "Neil Mitash Practice III";
+            String[] email = { "sweng888mobileapps@gmail.com" };
+            StringBuilder messageBuilder = new StringBuilder();
+            messageBuilder.append("Here are the item details you asked for...\n\n");
+            for (Product product : selectedProducts) {
+                messageBuilder.append(product.getTitle()).append(" - $")
+                        .append(product.getPrice().floatValue()).append("\n\n");
+            }
+
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("*/*");
+            intent.putExtra(Intent.EXTRA_EMAIL, email);
+            intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+            intent.putExtra(Intent.EXTRA_TEXT, messageBuilder.toString());
+
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+                selectedProducts = new ArrayList<>();
+                initializeListView();
+            }
         }
     }
 }
