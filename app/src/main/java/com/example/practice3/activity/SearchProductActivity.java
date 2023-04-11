@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ import com.example.practice3.dao.ProductMaintenanceDao;
 import com.example.practice3.model.Feedback;
 import com.example.practice3.model.Product;
 import com.example.practice3.model.ProductListAdapter;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -27,6 +29,7 @@ public class SearchProductActivity extends AppCompatActivity {
     private RecyclerView mProductRecyclerView;
     private TextView mLogoutLink;
     private AppDatabaseHelper databaseHelper;
+    private LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,7 @@ public class SearchProductActivity extends AppCompatActivity {
 
         mLogoutLink = findViewById(R.id.logout_link);
         mProductRecyclerView = findViewById(R.id.product_recyclerView);
+        linearLayout = findViewById(R.id.search_product_layout);
 
         databaseHelper = new AppDatabaseHelper(this);
         ProductMaintenanceDao dao = new ProductMaintenanceDao(databaseHelper);
@@ -77,7 +81,7 @@ public class SearchProductActivity extends AppCompatActivity {
         boolean backFromProductPage = getIntent().getBooleanExtra("RETURN_FROM_PRODUCT_PAGE", false);
 
         if (backFromProductPage) {
-            Toast.makeText(this, "Welcome back to the product page!", Toast.LENGTH_SHORT).show();
+            Snackbar.make(linearLayout, "Welcome back to the product page!", Snackbar.LENGTH_LONG).show();
         }
     }
 
